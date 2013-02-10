@@ -15,83 +15,50 @@
     	
     	<h1>Ski Trip</h1>
 
+    	<h3>To Pack</h3>
 		<form id="to-pack">
-
-	    	<h3>To Pack</h3>
-
-	    	<!-- GEAR -->
-	    	<table class="table table-condensed list gear">
-	    		<thead>
-	    			<tr><th>Gear</th></tr>
-	    		</thead>
-	    		<tr>
-	    			<td>
-					    <label class="checkbox">
-					      <input type="checkbox" id="snowpants" class="list-item"> Snowpants
-					    </label>
-					</td>
-	    		</tr>
-
-	    		<tr>
-	    			<td>
-					    <label class="checkbox">
-					      <input type="checkbox" id="gloves" class="list-item"> Gloves
-					    </label>
-					</td>
-	    		</tr>
-
-		    </table>
-
-		    <!-- TOILETRIES -->
-		    <table class="table table-condensed list toiletries">
-		    		<thead>
-		    			<tr><th>Toiletries</th></tr>
-		    		</thead>
-		    		<tr>
-		    			<td>
-						    <label class="checkbox">
-						      <input type="checkbox" id="toothbrush" class="list-item"> Toothbrush
-						    </label>
-						</td>
-		    		</tr>
-
-		    		<tr>
-		    			<td>
-						    <label class="checkbox">
-						      <input type="checkbox" id="toothpaste" class="list-item"> Toothpaste
-						    </label>
-						</td>
-		    		</tr>
-
-		    </table>
 		</form>
 
+		<h3>Packed</h3>
 		<form id="packed">
-
-	    	<h3>Packed</h3>
-
-	    	<!-- TOILETRIES -->
-		    <table class="table table-condensed list toiletries">
-	    		<thead>
-	    			<tr><th>Toiletries</th></tr>
-	    		</thead>
-	    		<tr>
-	    			<td>
-					    <label class="checkbox">
-					      <input type="checkbox" id="gel" class="list-item"> Gel
-					    </label>
-					</td>
-	    		</tr>
-	    	</table>
-
 		</form>
 
 	<script type="text/javascript">
 
 
+
 		
 		$(document).ready(function() {
 		   
+		   // all items start as unpacked
+		   var items = {};
+		   items['gear'] = ['snowpants', 'gloves'];
+		   items['toiletries'] = ['toothbrush', 'gel', 'toothpaste'];
+
+		   function getItemMarkup(item) {
+		   		return "<tr><td><label class='checkbox'><input type='checkbox' id='"+item+"' class='list-item'> "+item+"</label></td></tr>";
+		   }
+
+		   function getSectionMarkup(sectionName, sectionItems) {
+
+		   		var openSectionMarkup = "<table class='table table-condensed list "+sectionName+"'><thead><tr><th>"+sectionName+"</th></tr></thead><tbody>";
+
+		    	var itemMarkup = "";
+		    	for(var key in sectionItems) {
+		    		itemMarkup += getItemMarkup(sectionItems[key]);
+		    	}
+		
+		    	closeSectionMarkup = "</tbody></table>";
+
+		    	return openSectionMarkup + itemMarkup + closeSectionMarkup;
+
+			}
+
+			for (var section in items) {
+				var sectionMarkup = getSectionMarkup(section, items[section]);
+				console.log(sectionMarkup);
+				$("#to-pack").append($(sectionMarkup));
+			}
 
 		   // observe all to pack items
 		   $("#to-pack .list-item").click(function(event) {

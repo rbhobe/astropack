@@ -11,7 +11,7 @@
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
   </head>
-  <body>
+  <body class="packing-not-started">
 
     <div class="container">
     	
@@ -30,7 +30,7 @@
 
 		<div class="tab-content">
 		  <div class="tab-pane active" id="to-pack">
-		  	<div id="start-packing-header" style="text-align:center;">
+		  	<div id="start-packing-header">
 			  	<h3>Let's Pack <span>for</span> Ski Trip</h3>
 			  	<button type="button" id="start-packing" class="btn btn-large btn-success">Start Packing</button>
 		  	</div>
@@ -69,8 +69,10 @@
 			// watch the start packing button, on click: hide it, show all pack buttons, expand all sections
 			$("#start-packing").click( function(event) {
 				$(event.target).hide();
+				$('#pack-nav').show();
 				$('.pack-action').show();
-				$('.collapse').collapse();
+				$('#to-pack .collapse').collapse();
+				$('body').removeClass("packing-not-started").addClass("packing-started");
 			});
 
 
@@ -193,13 +195,15 @@
 	   function getSectionMarkup(sectionName, sectionItems, state) {
 
 	   		var whichList = '';
+	   		var defaultOpen = '';
 	   		if (state == 'to-pack') {
 	   			whichList = 'to-pack-';
 	   		} else {
 	   			whichList = 'packed-';
+	   			defaultOpen = ' in';
 	   		}
 
-	   		var openSectionMarkup = "<div type='"+sectionName+"' class='accordion' id='"+whichList+sectionName+"'><div class='accordion-group'><div class='accordion-heading'><a class='accordion-toggle' data-toggle='collapse' data-parent='"+whichList+sectionName+"' href='#"+whichList+sectionName+"-item-list'>"+sectionName+" <button type='button' class='grow-shrink btn btn-mini pull-right' data-toggle='collapse' data-target='#"+whichList+sectionName+"-item-list'>+ expand</button></a></div><div id='"+whichList+sectionName+"-item-list' class='accordion-body collapse'><div class='accordion-inner'><table class='table table-striped list' id='"+whichList+sectionName+"-items'><tbody>";
+	   		var openSectionMarkup = "<div type='"+sectionName+"' class='accordion' id='"+whichList+sectionName+"'><div class='accordion-group'><div class='accordion-heading'><a class='accordion-toggle' data-toggle='collapse' data-parent='"+whichList+sectionName+"' href='#"+whichList+sectionName+"-item-list'>"+sectionName+" <button type='button' class='grow-shrink btn btn-mini pull-right' data-toggle='collapse' data-target='#"+whichList+sectionName+"-item-list'>+ expand</button></a></div><div id='"+whichList+sectionName+"-item-list' class='accordion-body collapse"+defaultOpen+"'><div class='accordion-inner'><table class='table table-striped list' id='"+whichList+sectionName+"-items'><tbody>";
 
 	    	var itemMarkup = "";
 	    	if (state == 'to-pack') {

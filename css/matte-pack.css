@@ -4,6 +4,15 @@
 	}
 }
 
+body.packing-not-started .accordion, .accordion-group {
+	margin-bottom: 0;
+}
+
+body.packing-started h3 {
+	margin-top: 0px;
+	margin-bottom: 18px;
+}
+
 h3 span {
 	font-style: italic;
 	font-size: 16px;
@@ -45,7 +54,8 @@ h3 span {
 }
 
 #pack-nav {
-	margin-bottom: 0;
+	margin-bottom: 18px;
+	display:none;
 }
 
 #pack-nav.navbar-fixed-top .navbar-inner { padding:0 0 0 20px; }
@@ -64,6 +74,10 @@ h3 span {
 
 .see-item {
 	margin-left:8px;
+}
+
+#start-packing-header {
+	text-align: center;
 }
 
 #start-packing {

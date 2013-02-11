@@ -2,11 +2,11 @@
 <html>
   <head>
     <title>Astropack</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <!-- Bootstrap -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
-    <link href="css/matte-pack.css">
+    <link href="css/matte-pack.css" rel="stylesheet">
     <script src="http://code.jquery.com/jquery.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
   </head>
@@ -25,68 +25,125 @@
 
 	<script type="text/javascript">
 
-
-
-		
 		$(document).ready(function() {
 		   
-		   // all items start as unpacked
+		   // items to be packed
 		   var items = {};
-		   items['gear'] = ['snowpants', 'gloves'];
-		   items['toiletries'] = ['toothbrush', 'gel', 'toothpaste'];
+		   items['gear'] = ['snowpants', 'snowboard', 'gloves', 'boots', 'ski-goggles', 'winter-jacket', 'wool-socks'];
+		   items['toiletries'] = ['toothbrush', 'toothpaste', 'gel', 'deodarant', 'towel'];
+		   items['clothes'] = ['pants', 'shirts', 'underwear', 'socks', 'belt', 'longjohns', 'swimsuit', 'basketball-shorts', 'shoes'];
+		   items['other'] = ['trashbags', 'sleeping-bag', 'pillow'];
+		   items['essentials'] = ['glasses', 'wallet', 'phone', 'charger', 'keys'];
 
-		   function getItemMarkup(item) {
-		   		return "<tr><td><label class='checkbox'><input type='checkbox' id='"+item+"' class='list-item'> "+item+"</label></td></tr>";
-		   }
-
-		   function getSectionMarkup(sectionName, sectionItems) {
-
-		   		var openSectionMarkup = "<table class='table table-condensed list "+sectionName+"'><thead><tr><th>"+sectionName+"</th></tr></thead><tbody>";
-
-		    	var itemMarkup = "";
-		    	for(var key in sectionItems) {
-		    		itemMarkup += getItemMarkup(sectionItems[key]);
-		    	}
-		
-		    	closeSectionMarkup = "</tbody></table>";
-
-		    	return openSectionMarkup + itemMarkup + closeSectionMarkup;
-
-			}
-
+		   // add the items to the list
 			for (var section in items) {
+				// to-pack sections are populated and shown
 				var sectionMarkup = getSectionMarkup(section, items[section]);
-				console.log(sectionMarkup);
 				$("#to-pack").append($(sectionMarkup));
+
+				// packed section is unpopulated and hidden
+				var sectionMarkup = getSectionMarkup(section, []);
+				$("#packed").append($(sectionMarkup).hide());
 			}
 
 		   // observe all to pack items
 		   $("#to-pack .list-item").click(function(event) {
-		     alert("packed "+$(event.target).parents("label").text().trim());
+
+		      	// when an item is packed, move it down to the packed section
+		      	markItemAsPacked($("#"+event.target.id), $("#"+event.target.id).parents("table").attr('id'));
+				
+				// if all items are packed, celebrate
+				if ($("#to-pack").find("tbody tr").length == 0) {
+		   			alert("You're all packed! Have a great trip :)");
+		   		}
+
 		   });
-
-
-
-
-		   // observe all packed items
-		   $("#packed .list-item").click(function(event) {
-		     alert("unpacked "+$(event.target).parents("label").text().trim());
-		   });
-
 
 		});
 
-		
-		// when an item is packed, move it down to the packed section
-		// if the subsection does not exist in packed, create it
-		// if the subsection in to pack is empty, remove it
-		// if all items are packed, celebrate
 
-		
-		// when an item is unpacked, move it up to the to pack section
-		// if the subsection does not exist in packed, create it
-		// if the subsection in packed is empty, remove it
-		// if all items are unpacked, sad face
+		/* * * FUNCTIONS * * */
+
+		function markItemAsUnpacked(item, sectionName) {
+
+			// if the section is hidden in to-pack, show it
+			if ($("#to-pack table#"+sectionName).is(":hidden")) {
+	   			$("#to-pack table#"+sectionName).show();
+	   		}
+
+	   		var itemName = getItemNameFromId(item);
+
+	   		// remove the item from the packed section
+			$("#packed #"+itemName).parents("tr").remove();
+
+			// if the section in packed is empty, remove it
+			if(!$("#packed #"+sectionName).find("tbody tr").length) {
+				$("#packed #"+sectionName).hide();
+			}
+
+			// add the item to the to-pack section
+	   		var itemMarkup = getItemMarkup(itemName);
+	   		$("#to-pack table#"+sectionName).append($(itemMarkup));
+
+			// start observing the to-pack item for pack
+			$("#to-pack table#"+sectionName+" #"+itemName).click( function() {
+	   			markItemAsPacked(item, sectionName);
+	   		});
+
+			
+		}
+
+		function markItemAsPacked(item, sectionName) {
+
+	   		// if the section is hidden in packed, show it
+	   		if ($("#packed table#"+sectionName).is(":hidden")) {
+	   			$("#packed table#"+sectionName).show();
+	   		}
+
+	   		var itemName = getItemNameFromId(item);
+
+	   		// remove the item from the to pack section
+	   		$("#to-pack #"+itemName).parents("tr").remove();
+
+			// if the section in to pack is empty, hide it
+			if(!$("#to-pack #"+sectionName).find("tbody tr").length) {
+				$("#to-pack #"+sectionName).hide();
+			}
+
+	   		// add the item to the packed section
+	   		var itemMarkup = getItemMarkup(itemName);
+	   		$("#packed table#"+sectionName).append($(itemMarkup));
+
+	   		// start observing the packed item for unpack
+	   		$("#packed table#"+sectionName+" #"+itemName).click( function() {
+	   			markItemAsUnpacked(item, sectionName);
+	   		});
+
+	   		
+	   }
+
+		function getItemNameFromId(item) {
+			return $(item).parents("label").text().trim();
+		}
+
+		function getItemMarkup(item) {
+	   		return "<tr><td><label class='checkbox'><input type='checkbox' id='"+item+"' class='list-item'> "+item+"</label></td></tr>";
+	   }
+
+	   function getSectionMarkup(sectionName, sectionItems) {
+
+	   		var openSectionMarkup = "<table class='table table-striped list' id='"+sectionName+"'><thead><tr><th>"+sectionName+"</th></tr></thead><tbody>";
+
+	    	var itemMarkup = "";
+	    	for(var key in sectionItems) {
+	    		itemMarkup += getItemMarkup(sectionItems[key]);
+	    	}
+	
+	    	closeSectionMarkup = "</tbody></table>";
+
+	    	return openSectionMarkup + itemMarkup + closeSectionMarkup;
+
+		}
 
 	</script>
 

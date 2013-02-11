@@ -1,3 +1,14 @@
+@media only screen and (min-device-width: 321px) {
+	body {
+		padding-top:40px;
+	}
+}
+
+h3 span {
+	font-style: italic;
+	font-size: 16px;
+}
+
 .lists { 
 	max-width: 300px;
 	padding: 19px 29px 29px;
@@ -12,6 +23,40 @@
 	box-shadow: 0 1px 2px rgba(0,0,0,.05);
 }
 
+.list .section-heading {
+	font-size:16px;
+	font-style:italic;
+}
+
+.list .grow-shrink {
+	font-size:13px;
+	color:#BBB;
+}
+
 .pack-action {
 	float:right;
+}
+
+.list-item {
+	margin-left: 20px;
+	font-size:16px;
+	line-height:28px;
+}
+
+#pack-nav {
+	margin-bottom: 0;
+}
+
+#pack-nav.navbar-fixed-top .navbar-inner { padding:0; }
+
+.accordion-heading .accordion-toggle {
+	padding: 8px 6px 8px 15px;
+}
+
+.accordion-inner {
+	padding:0;
+}
+
+.table {
+	margin:0;
 }

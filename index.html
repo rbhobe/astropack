@@ -30,24 +30,27 @@
 
 		<div class="tab-content">
 		  <div class="tab-pane active" id="to-pack">
-		  	<h3>Let's Pack <span>for</span> Ski Trip</h3>
+		  	<div id="start-packing-header" style="text-align:center;">
+			  	<h3>Let's Pack <span>for</span> Ski Trip</h3>
+			  	<button type="button" id="start-packing" class="btn btn-large btn-success">Start Packing</button>
+		  	</div>
 		  </div>
 		  <div class="tab-pane" id="packed">
-		  	<h3>Packed <span>for</span> Ski Trip</h3>
 		  </div>
 		</div>
 
 	<script type="text/javascript">
 
 		$(document).ready(function() {
-		   
-		   // items to be packed
+
+			// items to be packed
 		   var items = {};
 		   items['gear'] = ['snowpants', 'snowboard', 'gloves', 'boots', 'ski-goggles', 'winter-jacket', 'wool-socks'];
 		   items['toiletries'] = ['toothbrush', 'toothpaste', 'gel', 'deodarant', 'towel'];
 		   items['clothes'] = ['pants', 'shirts', 'underwear', 'socks', 'belt', 'longjohns', 'swimsuit', 'basketball-shorts', 'shoes'];
 		   items['other'] = ['trashbags', 'sleeping-bag', 'pillow'];
 		   items['essentials'] = ['glasses', 'wallet', 'phone', 'charger', 'keys'];
+
 
 		   // add the items to the list
 			for (var section in items) {
@@ -60,6 +63,17 @@
 				$("#packed").append($(sectionMarkup).hide());
 			}
 
+			// hide the pack buttons until we start packing
+		    $(".pack-action").hide();
+
+			// watch the start packing button, on click: hide it, show all pack buttons, expand all sections
+			$("#start-packing").click( function(event) {
+				$(event.target).hide();
+				$('.pack-action').show();
+				$('.collapse').collapse();
+			});
+
+
 		   // observe all to pack items
 		   $("#to-pack .list-item").click(function(event) {
 
@@ -67,6 +81,7 @@
 		      	markItemAsPacked(event.target.id, $("#"+event.target.id).parents("div.accordion").attr('type'));
 
 		   });
+
 
 		   // section collapse button toggle
 		   // RSB TODO: race condition => checking class while class is being manipulated .collapsed
@@ -184,7 +199,7 @@
 	   			whichList = 'packed-';
 	   		}
 
-	   		var openSectionMarkup = "<div type='"+sectionName+"' class='accordion' id='"+whichList+sectionName+"'><div class='accordion-group'><div class='accordion-heading'><a class='accordion-toggle' data-toggle='collapse' data-parent='"+whichList+sectionName+"' href='#"+whichList+sectionName+"-item-list'>"+sectionName+" <button type='button' class='grow-shrink btn btn-mini pull-right' data-toggle='collapse' data-target='#"+whichList+sectionName+"-item-list'>- collapse</button></a></div><div id='"+whichList+sectionName+"-item-list' class='accordion-body collapse in'><div class='accordion-inner'><table class='table table-striped list' id='"+whichList+sectionName+"-items'><tbody>";
+	   		var openSectionMarkup = "<div type='"+sectionName+"' class='accordion' id='"+whichList+sectionName+"'><div class='accordion-group'><div class='accordion-heading'><a class='accordion-toggle' data-toggle='collapse' data-parent='"+whichList+sectionName+"' href='#"+whichList+sectionName+"-item-list'>"+sectionName+" <button type='button' class='grow-shrink btn btn-mini pull-right' data-toggle='collapse' data-target='#"+whichList+sectionName+"-item-list'>+ expand</button></a></div><div id='"+whichList+sectionName+"-item-list' class='accordion-body collapse'><div class='accordion-inner'><table class='table table-striped list' id='"+whichList+sectionName+"-items'><tbody>";
 
 	    	var itemMarkup = "";
 	    	if (state == 'to-pack') {

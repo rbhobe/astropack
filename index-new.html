@@ -16,34 +16,47 @@
     <link href="css/matte-pack.css" rel="stylesheet">
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <link href="css/astro.css" rel="stylesheet">
   </head>
 
   <body>
     <div id="astropack">
 
     <div id="main">
-        <table class="table table-striped" id="items-container">
 
 
 
-        </table>
     </div>
     
 
     <!-- Item Template -->
     <!-- <li class="item"><%= name %></li> -->
     <script type="text/template" id="item-template">
-      <td><%= name %></td>
+        <td>
+            <span class="item-name"><%= name %></span>
+            <button class="pack-action btn btn-success">Pack</button>
+        </td>
     </script>
 
     <!-- Item Group Template -->
     <script type="text/template" id="item-group-template">
+        <table id="toiletries-items-list" class="table table-striped item-group">
+            <thead>
+                <th><%= name %></th>
+            </thead>
+        </table>
+    </script>
+
+    <script>
+    /* Old item group template
       <div class="item-group">
         <span class="item-group-heading"><%= name %></span>
         <ul>
           
         </ul>
       </div>
+    */
     </script>
 
 

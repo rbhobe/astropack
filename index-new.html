@@ -23,47 +23,33 @@
   <body>
     <div id="astropack">
 
-    <div id="main">
+        <div id="main">
 
 
 
-    </div>
-    
+        </div>
+        
 
-    <!-- Item Template -->
-    <!-- <li class="item"><%= name %></li> -->
-    <script type="text/template" id="item-template">
-        <td>
-            <span class="item-name"><%= name %></span>
-            <button class="pack-action btn btn-success">Pack</button>
-        </td>
-    </script>
+        <!-- Item Template -->
+        <script type="text/template" id="item-template">
+            <td>
+                <span class="item-name"><%= name %></span>
+                <button class="pack-action btn btn-success">Pack</button>
+            </td>
+        </script>
 
-    <!-- Item Group Template -->
-    <script type="text/template" id="item-group-template">
-        <table id="toiletries-items-list" class="table table-striped item-group">
-            <thead>
-                <th><%= name %></th>
-            </thead>
-        </table>
-    </script>
-
-    <script>
-    /* Old item group template
-      <div class="item-group">
-        <span class="item-group-heading"><%= name %></span>
-        <ul>
-          
-        </ul>
-      </div>
-    */
-    </script>
+        <!-- Item Group Template -->
+        <script type="text/template" id="item-group-template">
+            <table id="toiletries-items-list" class="table table-striped item-group">
+                <thead>
+                    <th><%= name %></th>
+                </thead>
+            </table>
+        </script>
 
 
-
-    <!-- ASTRO LOGIC -->
-    <script src="js/astro2.js"></script>
-    <script src="js/astro.js"></script>
+        <!-- ASTRO LOGIC -->
+        <script src="js/astro.js"></script>
 
     </div>
   </body>

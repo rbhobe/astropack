@@ -13,9 +13,7 @@ AstroApp.Models.Item = Backbone.Model.extend({
         packed: false
     },
 
-    initialize: function() {
-        
-    },
+    initialize: function() {},
 
     togglePacked: function() {
         this.set({ packed: !this.get('packed') });
@@ -95,9 +93,7 @@ AstroApp.Views.ItemGroupView = Backbone.View.extend({
     type: 'ItemGroupView', // for debugging
 
     template: _.template($('#item-group-template').html()),
-
-    // collection: passed in during init
-
+    
     initialize: function(options) {
 
         this.collection.bind('reset', this.loaded, this);
@@ -109,8 +105,6 @@ AstroApp.Views.ItemGroupView = Backbone.View.extend({
                 alert('error fetching collection');
             }
         });        
-
-        //console.log(this.collection.get('name'));
 
     },
 
@@ -130,14 +124,9 @@ AstroApp.Views.ItemGroupView = Backbone.View.extend({
     },
 
     render: function() {
-
-        //console.log('hello');
-        //console.log(this.collection);
-
         var itemGroupHtml = this.template({ name: this.collection.get('name') });
         $(this.main).html(itemGroupHtml);
 
-        //console.log(this.collection.models);
         _.each(this.collection.models, this.addItem, this);
 
         return this;

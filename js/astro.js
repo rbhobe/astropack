@@ -63,10 +63,17 @@ AstroApp.Collections.ItemGroup = Backbone.Collection.extend({
 
     model: AstroApp.Models.Item,
 
+    url: 'js/ski-trip.json',
+
     initialize: function(models, options) {
         // storing meta info for the collection, like name
         this._meta = {};
-        _.each(options, this.set, this);
+    },
+
+    parse: function(response) {
+        //console.log(response);
+        this.set(response.name, 'name');
+        return response.items;
     },
 
     set: function(val, prop) {
@@ -92,8 +99,18 @@ AstroApp.Views.ItemGroupView = Backbone.View.extend({
     // collection: passed in during init
 
     initialize: function(options) {
-        
-        //this.model.on('change', this.render, this);
+
+        this.collection.bind('reset', this.render, this);
+        this.collection.fetch({
+            success : function() {
+                alert('successful');
+            },
+            error : function(collection, xhr, options) {
+                console.log(collection);
+                console.log(xhr);
+                console.log(options);
+            }
+        });
 
         // todo: construct the groupList property from the item group name
         // gear => gear-items-list
@@ -111,6 +128,8 @@ AstroApp.Views.ItemGroupView = Backbone.View.extend({
 
     render: function() {
 
+        console.log(this.collection);
+
         var itemGroupHtml = this.template({ name: this.collection.get('name') });
         $(this.main).html(itemGroupHtml);
 
@@ -121,15 +140,8 @@ AstroApp.Views.ItemGroupView = Backbone.View.extend({
     
 });
 
-var myToiletryItems = [
-    { 'name': 'toothbrush' },
-    { 'name': 'deodorant' },
-    { 'name': 'toothpaste' },
-];
-
-var toiletryItems = new AstroApp.Collections.ItemGroup( myToiletryItems, { name:'toiletries' } );
-
+var toiletryItems = new AstroApp.Collections.ItemGroup();
 var toiletryGroupView = new AstroApp.Views.ItemGroupView({ collection: toiletryItems });
+//toiletryGroupView.render();
 
-toiletryGroupView.render();
 

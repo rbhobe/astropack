@@ -71,9 +71,9 @@ AstroApp.Collections.ItemGroup = Backbone.Collection.extend({
     },
 
     parse: function(response) {
-        //console.log(response);
-        this.set(response.name, 'name');
-        return response.items;
+        //console.log(response[0]);
+        this.set(response[0].name, 'name');
+        return response[0].items;
     },
 
     set: function(val, prop) {
@@ -102,13 +102,10 @@ AstroApp.Views.ItemGroupView = Backbone.View.extend({
 
         this.collection.bind('reset', this.render, this);
         this.collection.fetch({
-            success : function() {
-                alert('successful');
-            },
-            error : function(collection, xhr, options) {
-                console.log(collection);
-                console.log(xhr);
-                console.log(options);
+            success: function(one, two, three) {
+                //console.log(one);
+                //console.log(two[0]);
+                //console.log(three);
             }
         });
 
@@ -128,6 +125,7 @@ AstroApp.Views.ItemGroupView = Backbone.View.extend({
 
     render: function() {
 
+        console.log('hello');
         console.log(this.collection);
 
         var itemGroupHtml = this.template({ name: this.collection.get('name') });
@@ -142,6 +140,7 @@ AstroApp.Views.ItemGroupView = Backbone.View.extend({
 
 var toiletryItems = new AstroApp.Collections.ItemGroup();
 var toiletryGroupView = new AstroApp.Views.ItemGroupView({ collection: toiletryItems });
+
 //toiletryGroupView.render();
 
 

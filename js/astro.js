@@ -88,7 +88,7 @@ AstroApp.Collections.ItemGroup = Backbone.Collection.extend({
 
 AstroApp.Views.ItemGroupView = Backbone.View.extend({
     
-    groupList: '',
+    groupListId: '',
 
     main: '#main',
 
@@ -100,38 +100,45 @@ AstroApp.Views.ItemGroupView = Backbone.View.extend({
 
     initialize: function(options) {
 
-        this.collection.bind('reset', this.render, this);
+        this.collection.bind('reset', this.loaded, this);
         this.collection.fetch({
-            success: function(one, two, three) {
-                //console.log(one);
-                //console.log(two[0]);
-                //console.log(three);
+            success: function(collection, response, options) {
+                console.log('successful collection fetch');
+            },
+            error: function(col, xhr, opt) {
+                alert('error fetching collection');
             }
-        });
-
-        // todo: construct the groupList property from the item group name
-        // gear => gear-items-list
-        // Extra Stuff => extra-stuff-items-list
-        this.groupList = '#'+this.collection.get('name')+'-items-list';
+        });        
 
         //console.log(this.collection.get('name'));
 
     },
 
-    processItem: function(item) {
+    loaded: function() {
+        // todo: construct the groupList property from the item group name
+        // gear => gear-items-list
+        // Extra Stuff => extra-stuff-items-list
+
+        // set the groupListId once the name has been set for the collection
+        this.groupListId = '#'+this.collection.get('name')+'-items-list';
+        this.render();
+    },
+
+    addItem: function(item) {
         var itemView = new AstroApp.Views.ItemView({ model: item });
-        $(this.groupList).append(itemView.render().el);
+        $(this.groupListId).append(itemView.render().el);
     },
 
     render: function() {
 
-        console.log('hello');
-        console.log(this.collection);
+        //console.log('hello');
+        //console.log(this.collection);
 
         var itemGroupHtml = this.template({ name: this.collection.get('name') });
         $(this.main).html(itemGroupHtml);
 
-        _.each(this.collection.models, this.processItem, this);
+        //console.log(this.collection.models);
+        _.each(this.collection.models, this.addItem, this);
 
         return this;
     }

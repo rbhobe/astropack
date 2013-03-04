@@ -1,10 +1,10 @@
 [
      {
-        'name' : 'toiletries',
-        'items' : [
-            { 'name': 'toothbrush' },
-            { 'name': 'deodorant' },
-            { 'name': 'toothpaste' },
+        "name" : "toiletries",
+        "items" : [
+            { "name": "toothbrush" },
+            { "name": "deodorant" },
+            { "name": "toothpaste" }
         ]
      }
 ]

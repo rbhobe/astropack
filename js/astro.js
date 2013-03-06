@@ -115,11 +115,7 @@ AstroApp.Views.ItemGroupView = Backbone.View.extend({
     },
 
     loaded: function() {
-        // todo: construct the groupList property from the item group name
-        // gear => gear-items-list
-        // Extra Stuff => extra-stuff-items-list
-
-        // set the groupListId once the name has been set for the collection
+        // set the groupListId once the selector name has been set for the collection
         this.groupListId = '#'+this.collection.get('selectorName')+'-items-list';
         this.render();
     },
@@ -140,8 +136,8 @@ AstroApp.Views.ItemGroupView = Backbone.View.extend({
     
 });
 
-var toiletryItems = new AstroApp.Collections.ItemGroup();
-var toiletryGroupView = new AstroApp.Views.ItemGroupView({ collection: toiletryItems });
+var itemList = new AstroApp.Collections.ItemGroup();
+var itemListView = new AstroApp.Views.ItemGroupView({ collection: items });
 
 //toiletryGroupView.render();
 

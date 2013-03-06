@@ -1,6 +1,6 @@
 [
      {
-        "name" : "toiletries",
+        "displayName" : "Toiletries",
         "items" : [
             { "name": "toothbrush" },
             { "name": "deodorant" },

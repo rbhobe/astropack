@@ -5,6 +5,8 @@ var AstroApp = {
     Templates: {}
 };
 
+var DataUtils = 
+
 
 AstroApp.Models.Item = Backbone.Model.extend({
 
@@ -69,9 +71,13 @@ AstroApp.Collections.ItemGroup = Backbone.Collection.extend({
     },
 
     parse: function(response) {
-        //console.log(response[0]);
-        this.set(response[0].name, 'name');
-        return response[0].items;
+        var displayName = response[0].displayName;
+        var selectorName = StrUtils.toSafeSelectorStr(response[0].displayName);
+
+        this.set(displayName, 'displayName');
+        this.set(selectorName, 'selectorName');
+
+        return response[0].items; // return the array of models
     },
 
     set: function(val, prop) {
@@ -114,7 +120,7 @@ AstroApp.Views.ItemGroupView = Backbone.View.extend({
         // Extra Stuff => extra-stuff-items-list
 
         // set the groupListId once the name has been set for the collection
-        this.groupListId = '#'+this.collection.get('name')+'-items-list';
+        this.groupListId = '#'+this.collection.get('selectorName')+'-items-list';
         this.render();
     },
 
@@ -124,7 +130,7 @@ AstroApp.Views.ItemGroupView = Backbone.View.extend({
     },
 
     render: function() {
-        var itemGroupHtml = this.template({ name: this.collection.get('name') });
+        var itemGroupHtml = this.template({ name: this.collection.get('displayName') });
         $(this.main).html(itemGroupHtml);
 
         _.each(this.collection.models, this.addItem, this);

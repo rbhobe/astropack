@@ -5,8 +5,6 @@ var AstroApp = {
     Templates: {}
 };
 
-var DataUtils = 
-
 
 AstroApp.Models.Item = Backbone.Model.extend({
 

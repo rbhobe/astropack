@@ -135,7 +135,7 @@ AstroApp.Views.ItemGroupView = Backbone.View.extend({
 });
 
 var itemList = new AstroApp.Collections.ItemGroup();
-var itemListView = new AstroApp.Views.ItemGroupView({ collection: items });
+var itemListView = new AstroApp.Views.ItemGroupView({ collection: itemList });
 
 //toiletryGroupView.render();
 

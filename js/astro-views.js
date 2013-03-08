@@ -34,13 +34,23 @@ AstroApp.Views.ItemView = Backbone.View.extend({
 
     packItem: function() {
         this.model.togglePacked(); // mark item as packed
-        console.log(this.model.get('name')+"'s state is now: packed="+this.model.get('packed'));
-        // todo: move the item out of the "to pack" collection into the "packed" collection
+        //console.log(this.model.get('name')+"'s state is now: packed="+this.model.get('packed'));
+        // console.log(this.model);
+
+        if (this.model.get('packed')) { // item was just packed, move it to the "packed" collection
+            //itemGroup.get('toPackItems').remove(this.model);
+
+            //console.log('here comes treble');
+            //console.log(itemGroup);
+        } else { // item was unpacked, move it to the "to pack collection"
+
+        }
+
     }
 
 });
 
-
+// view for model of type ItemGroup
 AstroApp.Views.ItemGroupView = Backbone.View.extend({
     
     groupId: '',
@@ -53,18 +63,37 @@ AstroApp.Views.ItemGroupView = Backbone.View.extend({
     
     initialize: function(options) {
 
+        AstroApp.asdf = this.model.get('toPackItems');
+
+        this.model.get('toPackItems').on('change:packed', function(model) { 
+            this.model.get('toPackItems').remove(model);
+            this.model.get('packedItems').add(model);
+
+            // console.log(this.model.get('toPackItems'));
+            // console.log(this.model.get('packedItems'));
+
+        }, this);
+
+        
+        // this.listenTo(this.model.get('packedItems'), 'change', alert('change'));
+
         this.groupId = '#'+this.model.get('selectorName')+'-items-list';
-        this.render();      
+        this.render();
+
+        this.listenTo(this.model.get('packedItems'), 'change', this.render);
+        //this.listenTo(this.model.get('toPackItems'), 'change', this.render);
 
     },
 
     addItem: function(item) {
-        console.log(item);
+        // console.log(item);
         var itemView = new AstroApp.Views.ItemView({ model: item });
         $(this.groupId).append(itemView.render().el);
     },
 
     render: function() {
+        // console.log('rendering itemgroup view');
+
         var itemGroupHtml = this.template({ name: this.model.get('displayName') });
         $(this.main).html(itemGroupHtml);
 

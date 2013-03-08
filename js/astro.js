@@ -6,8 +6,6 @@ AstroApp.Models.Item = Backbone.Model.extend({
         packed: false
     },
 
-    initialize: function() {},
-
     togglePacked: function() {
         this.set({ packed: !this.get('packed') });
     }
@@ -18,8 +16,6 @@ AstroApp.Models.Item = Backbone.Model.extend({
 AstroApp.Collections.Items = Backbone.Collection.extend({
 
     model: AstroApp.Models.Item,
-
-    initialize: function(models, options) { }
 
 });
 
@@ -42,10 +38,13 @@ AstroApp.Models.ItemGroup = Backbone.Model.extend({
         // this.toPackItems = new AstroApp.Collections.Items();
         // this.packedItems = new AstroApp.Collections.Items();
 
+
+
         // console.log(this.toPackItems);
         this.fetch({
-            success: function (argument) {
+            success: function () {
                 var itemGroupView = new AstroApp.Views.ItemGroupView({ model: itemGroup });
+                //itemGroupView.listenTo(itemGroupView.model.get('toPackItems'), 'remove', itemGroupView.render());
             },
             error: function() {
                 alert('error fetching model');
@@ -102,7 +101,7 @@ AstroApp.Models.ItemGroup = Backbone.Model.extend({
 
 var itemGroup = new AstroApp.Models.ItemGroup();
 
-console.log(itemGroup);
+// console.log(itemGroup);
 
 //var myPackingListView = new AstroApp.Views.ItemGroupsView({ collection: itemGroups });
 

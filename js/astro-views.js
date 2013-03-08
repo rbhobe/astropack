@@ -55,7 +55,8 @@ AstroApp.Views.ItemGroupView = Backbone.View.extend({
     
     groupId: '',
 
-    main: '#main',
+    toPackId: '#to-pack',
+    packedId: '#packed',
 
     type: 'ItemGroupView', // for debugging
 
@@ -95,7 +96,7 @@ AstroApp.Views.ItemGroupView = Backbone.View.extend({
         // console.log('rendering itemgroup view');
 
         var itemGroupHtml = this.template({ name: this.model.get('displayName') });
-        $(this.main).html(itemGroupHtml);
+        $(this.toPackId).html(itemGroupHtml);
 
         // access the models within the collection attribute
         _.each(this.model.get('toPackItems').models, this.addItem, this);

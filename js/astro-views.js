@@ -63,26 +63,26 @@ AstroApp.Views.ItemGroupView = Backbone.View.extend({
     
     initialize: function(options) {
 
-        AstroApp.asdf = this.model.get('toPackItems');
+        // DOM id for this item group
+        this.groupId = '#'+this.model.get('selectorName')+'-items-list';
 
+        // when an item is packed
         this.model.get('toPackItems').on('change:packed', function(model) { 
             this.model.get('toPackItems').remove(model);
             this.model.get('packedItems').add(model);
-
-            // console.log(this.model.get('toPackItems'));
-            // console.log(this.model.get('packedItems'));
-
         }, this);
 
-        
-        // this.listenTo(this.model.get('packedItems'), 'change', alert('change'));
+        // when an item is unpacked
+        this.model.get('packedItems').on('change:packed', function(model) { 
+            this.model.get('packedItems').remove(model);
+            this.model.get('toPackItems').add(model);
+        }, this);
 
-        this.groupId = '#'+this.model.get('selectorName')+'-items-list';
-        this.render();
-
+        // re-render the collections when they change
         this.listenTo(this.model.get('packedItems'), 'change', this.render);
-        //this.listenTo(this.model.get('toPackItems'), 'change', this.render);
-
+        this.listenTo(this.model.get('toPackItems'), 'change', this.render);
+        
+        this.render();
     },
 
     addItem: function(item) {

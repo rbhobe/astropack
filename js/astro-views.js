@@ -43,7 +43,7 @@ AstroApp.Views.ItemView = Backbone.View.extend({
 
 AstroApp.Views.ItemGroupView = Backbone.View.extend({
     
-    groupListId: '',
+    groupId: '',
 
     main: '#main',
 
@@ -53,36 +53,72 @@ AstroApp.Views.ItemGroupView = Backbone.View.extend({
     
     initialize: function(options) {
 
-        this.collection.bind('reset', this.loaded, this);
-        this.collection.fetch({
-            success: function(collection, response, options) {
-                console.log('successful collection fetch');
-            },
-            error: function(col, xhr, opt) {
-                alert('error fetching collection');
-            }
-        });        
+        this.groupId = '#'+this.model.get('selectorName')+'-items-list';
+        this.render();      
 
-    },
-
-    loaded: function() {
-        // set the groupListId once the selector name has been set for the collection
-        this.groupListId = '#'+this.collection.get('selectorName')+'-items-list';
-        this.render();
     },
 
     addItem: function(item) {
+        console.log(item);
         var itemView = new AstroApp.Views.ItemView({ model: item });
-        $(this.groupListId).append(itemView.render().el);
+        $(this.groupId).append(itemView.render().el);
     },
 
     render: function() {
-        var itemGroupHtml = this.template({ name: this.collection.get('displayName') });
+        var itemGroupHtml = this.template({ name: this.model.get('displayName') });
         $(this.main).html(itemGroupHtml);
 
-        _.each(this.collection.models, this.addItem, this);
+        // access the models within the collection attribute
+        _.each(this.model.get('toPackItems').models, this.addItem, this);
 
         return this;
     }
     
 });
+
+
+// AstroApp.Views.ItemGroupsView = Backbone.View.extend({
+    
+//     groupListId: '',
+
+//     main: '#main',
+
+//     type: 'ItemGroupView', // for debugging
+
+//     template: _.template($('#item-group-template').html()),
+    
+//     initialize: function(options) {
+
+//         this.collection.bind('reset', this.loaded, this);
+//         this.collection.fetch({
+//             success: function(collection, response, options) {
+//                 console.log('successful collection fetch');
+//             },
+//             error: function(col, xhr, opt) {
+//                 alert('error fetching collection');
+//             }
+//         });        
+
+//     },
+
+//     loaded: function() {
+//         // set the groupListId once the selector name has been set for the collection
+//         this.groupListId = '#'+this.collection.get('selectorName')+'-items-list';
+//         this.render();
+//     },
+
+//     addItem: function(item) {
+//         var itemView = new AstroApp.Views.ItemView({ model: item });
+//         $(this.groupListId).append(itemView.render().el);
+//     },
+
+//     render: function() {
+//         var itemGroupHtml = this.template({ name: this.collection.get('displayName') });
+//         $(this.main).html(itemGroupHtml);
+
+//         _.each(this.collection.models, this.addItem, this);
+
+//         return this;
+//     }
+    
+// });

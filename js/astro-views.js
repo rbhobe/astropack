@@ -53,7 +53,8 @@ AstroApp.Views.ItemView = Backbone.View.extend({
 // view for model of type ItemGroup
 AstroApp.Views.ItemGroupView = Backbone.View.extend({
     
-    groupId: '',
+    toPackGroupId: '',
+    packedGroupId: '',
 
     toPackId: '#to-pack',
     packedId: '#packed',
@@ -65,7 +66,8 @@ AstroApp.Views.ItemGroupView = Backbone.View.extend({
     initialize: function(options) {
 
         // DOM id for this item group
-        this.groupId = '#'+this.model.get('selectorName')+'-items-list';
+        this.toPackGroupId = '#'+this.model.get('selectorName')+'-items-list-to-pack';
+        this.packedGroupId = '#'+this.model.get('selectorName')+'-items-list-packed';
 
         // when an item is packed
         this.model.get('toPackItems').on('change:packed', function(model) { 
@@ -86,20 +88,30 @@ AstroApp.Views.ItemGroupView = Backbone.View.extend({
         this.render();
     },
 
-    addItem: function(item) {
+    addItemToToPack: function(item) {
         // console.log(item);
         var itemView = new AstroApp.Views.ItemView({ model: item });
-        $(this.groupId).append(itemView.render().el);
+        $(this.toPackGroupId).append(itemView.render().el);
+    },
+
+    addItemToPacked: function(item) {
+        // console.log(item);
+        var itemView = new AstroApp.Views.ItemView({ model: item });
+        $(this.packedGroupId).append(itemView.render().el);
     },
 
     render: function() {
         // console.log('rendering itemgroup view');
 
-        var itemGroupHtml = this.template({ name: this.model.get('displayName') });
-        $(this.toPackId).html(itemGroupHtml);
+        var toPackItemGroupHtml = this.template({ displayName: this.model.get('displayName'), selectorName: this.model.get('selectorName'), packedState: 'to-pack' });
+        $(this.toPackId).html(toPackItemGroupHtml);
+
+        var packedItemGroupHtml = this.template({ displayName: this.model.get('displayName'), selectorName: this.model.get('selectorName'), packedState: 'packed' });
+        $(this.packedId).html(packedItemGroupHtml);
 
         // access the models within the collection attribute
-        _.each(this.model.get('toPackItems').models, this.addItem, this);
+        _.each(this.model.get('toPackItems').models, this.addItemToToPack, this);
+        _.each(this.model.get('packedItems').models, this.addItemToPacked, this);
 
         return this;
     }

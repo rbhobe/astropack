@@ -34,17 +34,11 @@ AstroApp.Models.ItemGroup = Backbone.Model.extend({
     initialize: function(attributes, options) {
         // console.log(attributes);
         // console.log(options);
-
-        // this.toPackItems = new AstroApp.Collections.Items();
-        // this.packedItems = new AstroApp.Collections.Items();
-
-
-
-        // console.log(this.toPackItems);
+        
         this.fetch({
             success: function () {
+                // render the item group after it's fetched
                 var itemGroupView = new AstroApp.Views.ItemGroupView({ model: itemGroup });
-                //itemGroupView.listenTo(itemGroupView.model.get('toPackItems'), 'remove', itemGroupView.render());
             },
             error: function() {
                 alert('error fetching model');

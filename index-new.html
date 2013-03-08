@@ -52,9 +52,9 @@
 
         <!-- Item Group Template -->
         <script type="text/template" id="item-group-template">
-            <table id="toiletries-items-list" class="table table-striped item-group">
+            <table id="<%= selectorName %>-items-list-<%= packedState %>" class="table table-striped item-group">
                 <thead>
-                    <th><%= name %></th>
+                    <th><%= displayName %></th>
                 </thead>
             </table>
         </script>

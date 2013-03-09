@@ -8,7 +8,5 @@
 
 .pack-action { float:right; }
 
-.to-pack .pack-action.pack { display:block; }
 .to-pack .pack-action.undo-pack { display:none; }
 .packed  .pack-action.pack { display:none; }
-.packed  .pack-action.undo-pack { display:block; }

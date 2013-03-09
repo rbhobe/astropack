@@ -4,7 +4,8 @@
     <title>Astropack</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <!-- jQuery first -->
-    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="js/jquery-1.9.1.js"></script>
+    <!--<script src="http://code.jquery.com/jquery.js"></script>-->
     <!-- Underscore -->
     <script src="js/underscore.js"></script>
     <!-- Backbone -->
@@ -46,13 +47,14 @@
         <script type="text/template" id="item-template">
             <td>
                 <span class="item-name"><%= name %></span>
-                <button class="pack-action btn btn-success">Pack</button>
+                <button class="pack-action btn btn-success pack">Pack</button>
+                <button class="pack-action btn btn-warning undo-pack">Undo Pack</button>
             </td>
         </script>
 
         <!-- Item Group Template -->
         <script type="text/template" id="item-group-template">
-            <table id="<%= selectorName %>-items-list-<%= packedState %>" class="table table-striped item-group">
+            <table id="<%= selectorName %>-items-list-<%= packedState %>" class="table table-striped item-group <%= packedState %>">
                 <thead>
                     <th><%= displayName %></th>
                 </thead>

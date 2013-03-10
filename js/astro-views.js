@@ -64,10 +64,7 @@ AstroApp.Views.ItemGroupView = Backbone.View.extend({
             if(!this.model.get('toPackItems').length) { // when all items in a group have been packed
                 $(this.toPackId).hide();
             }
-            if(this.model.get('packedItems').length) {
-                console.log($(this.packedId));
-                $(this.packedId).show();
-            }
+            $(this.packedId).show();
         }, this);
 
         // when an item is unpacked
@@ -117,50 +114,3 @@ AstroApp.Views.ItemGroupView = Backbone.View.extend({
     }
     
 });
-
-
-// AstroApp.Views.ItemGroupsView = Backbone.View.extend({
-    
-//     groupListId: '',
-
-//     main: '#main',
-
-//     type: 'ItemGroupView', // for debugging
-
-//     template: _.template($('#item-group-template').html()),
-    
-//     initialize: function(options) {
-
-//         this.collection.bind('reset', this.loaded, this);
-//         this.collection.fetch({
-//             success: function(collection, response, options) {
-//                 console.log('successful collection fetch');
-//             },
-//             error: function(col, xhr, opt) {
-//                 alert('error fetching collection');
-//             }
-//         });        
-
-//     },
-
-//     loaded: function() {
-//         // set the groupListId once the selector name has been set for the collection
-//         this.groupListId = '#'+this.collection.get('selectorName')+'-items-list';
-//         this.render();
-//     },
-
-//     addItem: function(item) {
-//         var itemView = new AstroApp.Views.ItemView({ model: item });
-//         $(this.groupListId).append(itemView.render().el);
-//     },
-
-//     render: function() {
-//         var itemGroupHtml = this.template({ name: this.collection.get('displayName') });
-//         $(this.main).html(itemGroupHtml);
-
-//         _.each(this.collection.models, this.addItem, this);
-
-//         return this;
-//     }
-    
-// });

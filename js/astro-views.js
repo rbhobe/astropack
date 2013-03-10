@@ -33,19 +33,7 @@ AstroApp.Views.ItemView = Backbone.View.extend({
     },
 
     packItem: function() {
-        this.model.togglePacked(); // mark item as packed
-        //console.log(this.model.get('name')+"'s state is now: packed="+this.model.get('packed'));
-        // console.log(this.model);
-
-        if (this.model.get('packed')) { // item was just packed, move it to the "packed" collection
-            //itemGroup.get('toPackItems').remove(this.model);
-
-            //console.log('here comes treble');
-            //console.log(itemGroup);
-        } else { // item was unpacked, move it to the "to pack collection"
-
-        }
-
+        this.model.togglePacked(); // toggle item as packed or unpacked
     }
 
 });
@@ -56,8 +44,8 @@ AstroApp.Views.ItemGroupView = Backbone.View.extend({
     toPackGroupId: '',
     packedGroupId: '',
 
-    toPackId: '#to-pack',
-    packedId: '#packed',
+    toPackId: '#to-pack-container',
+    packedId: '#packed-container',
 
     type: 'ItemGroupView', // for debugging
 
@@ -73,12 +61,23 @@ AstroApp.Views.ItemGroupView = Backbone.View.extend({
         this.model.get('toPackItems').on('change:packed', function(model) { 
             this.model.get('toPackItems').remove(model);
             this.model.get('packedItems').add(model);
+            if(!this.model.get('toPackItems').length) { // when all items in a group have been packed
+                $(this.toPackId).hide();
+            }
+            if(this.model.get('packedItems').length) {
+                console.log($(this.packedId));
+                $(this.packedId).show();
+            }
         }, this);
 
         // when an item is unpacked
         this.model.get('packedItems').on('change:packed', function(model) { 
             this.model.get('packedItems').remove(model);
             this.model.get('toPackItems').add(model);
+            if(!this.model.get('packedItems').length) { // when all items in a group have been undo pack'ed
+                $(this.packedId).hide();
+            }
+            $(this.toPackId).show();
         }, this);
 
         // re-render the collections when they change
@@ -91,6 +90,7 @@ AstroApp.Views.ItemGroupView = Backbone.View.extend({
     addItemToToPack: function(item) {
         // console.log(item);
         var itemView = new AstroApp.Views.ItemView({ model: item });
+        console.log(this.toPackGroupId);
         $(this.toPackGroupId).append(itemView.render().el);
     },
 

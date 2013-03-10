@@ -10,3 +10,5 @@
 
 .to-pack .pack-action.undo-pack { display:none; }
 .packed  .pack-action.pack { display:none; }
+
+#packed-container { display:none; }

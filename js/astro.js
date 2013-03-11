@@ -68,7 +68,7 @@ AstroApp.Collections.ItemGroups = Backbone.Collection.extend({
     loaded: function() {
         console.log('collection successfully loaded');
         
-
+        // loop through and make a itemgroup view for each item group
 
     }
 

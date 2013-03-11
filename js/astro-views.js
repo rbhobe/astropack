@@ -17,19 +17,10 @@ AstroApp.Views.ItemView = Backbone.View.extend({
         "click .pack-action" : "packItem"
     },
 
-    initialize: function() {
-        this.model.on('change', this.modelChanged, this);
-    },
-
     render: function () {
         var itemHtml = this.template(this.model.toJSON());
         this.$el.html(itemHtml);
         return this;
-    },
-
-    modelChanged: function(model) {
-        // re-render the model's view when the model changes
-        this.render();
     },
 
     packItem: function() {

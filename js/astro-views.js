@@ -14,7 +14,7 @@ AstroApp.Views.ItemView = Backbone.View.extend({
     template: _.template($('#item-template').html()),
 
     events: {
-        "click .pack-action" : "packItem"
+        "click .pack-action" : "toggleItemPacked"
     },
 
     render: function () {
@@ -23,7 +23,7 @@ AstroApp.Views.ItemView = Backbone.View.extend({
         return this;
     },
 
-    packItem: function() {
+    toggleItemPacked: function() {
         this.model.togglePacked(); // toggle item as packed or unpacked
     }
 
@@ -78,7 +78,7 @@ AstroApp.Views.ItemGroupView = Backbone.View.extend({
     addItemToToPack: function(item) {
         // console.log(item);
         var itemView = new AstroApp.Views.ItemView({ model: item });
-        console.log(this.toPackGroupId);
+        // console.log(this.toPackGroupId);
         $(this.toPackGroupId).append(itemView.render().el);
     },
 

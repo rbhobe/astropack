@@ -74,7 +74,5 @@ AstroApp.Collections.ItemGroups = Backbone.Collection.extend({
 
 });
 
-
 var packingList = new AstroApp.Collections.ItemGroups();
-
 

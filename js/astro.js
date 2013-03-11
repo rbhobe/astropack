@@ -22,8 +22,6 @@ AstroApp.Collections.Items = Backbone.Collection.extend({
 
 AstroApp.Models.ItemGroup = Backbone.Model.extend({
 
-    url: 'js/ski-trip.json',
-
     defaults: {
         displayName: '',
         selectorName: '',
@@ -31,72 +29,52 @@ AstroApp.Models.ItemGroup = Backbone.Model.extend({
         packedItems: new AstroApp.Collections.Items(), // nothing is packed initially
     },
 
-    initialize: function(attributes, options) {
-        // console.log(attributes);
-        // console.log(options);
-        
-        this.fetch({
-            success: function () {
-                // render the item group after it's fetched
-                var itemGroupView = new AstroApp.Views.ItemGroupView({ model: itemGroup });
-            },
-            error: function() {
-                alert('error fetching model');
-            }
-        });
-    },
-
-    parse: function(response) {
-        var displayName = response[0].displayName;
-        var selectorName = StrUtils.toSafeSelectorStr(response[0].displayName);
-        var toPackItems = new AstroApp.Collections.Items(response[0].items);
-        var packedItems = new AstroApp.Collections.Items([]);
-
-        // return hash of attributes to populate for model
-        return { displayName: displayName, selectorName: selectorName, toPackItems: toPackItems, packedItems: packedItems };
+    initialize: function() {
+        new AstroApp.Views.ItemGroupView({ model: this });
     },
 
 });
 
-// var asdf = new AstroApp.Models.ItemGroup({ displayName:'Asdf', selectorName: 'asdf' }, { opt1:'hello', opt2:'world' }, {});
-// console.log(asdf);
+
+AstroApp.Collections.ItemGroups = Backbone.Collection.extend({
+
+    model: AstroApp.Models.ItemGroup,
+    url: 'js/ski-trip.json',
+
+    initialize: function() {
+        this.on('reset', this.loaded, this);
+
+        this.fetch();
+    },
+
+    parse: function(response) {
+
+        var itemGroups = [];
+
+        _.each(response, function(itemGroup) {
+
+            var displayName =  itemGroup.displayName;
+            var selectorName = StrUtils.toSafeSelectorStr(itemGroup.displayName);
+            var toPackItems = new AstroApp.Collections.Items(itemGroup.items);
+            var packedItems = new AstroApp.Collections.Items([]);
+
+            itemGroups.push({ displayName: displayName, selectorName: selectorName, toPackItems: toPackItems, packedItems: packedItems });
+        });
+
+        return itemGroups;
+
+    },
+
+    loaded: function() {
+        console.log('collection successfully loaded');
+        
 
 
-// AstroApp.Collections.ItemGroups = Backbone.Collection.extend({
+    }
 
-//     model: AstroApp.Models.ItemGroup,
+});
 
-//     url: 'js/ski-trip.json',
 
-//     initialize: function(models, options) {
-//         // storing meta info for the collection, like name
-//         // this._meta = {};
-//     },
-
-//     parse: function(response) {
-
-//         // this.set(displayName, 'displayName');
-//         // this.set(selectorName, 'selectorName');
-
-//         var itemGroup = new AstroApp.Models.ItemGroup({ displayName: response[0].displayName, selectorName: StrUtils.toSafeSelectorStr(response[0].displayName) }, { items: response[0].items });
-//         // console.log(itemGroup);
-//         // return [{ displayName: response[0].displayName, selectorName: StrUtils.toSafeSelectorStr(response[0].displayName), items: response[0].items }]; // return the array of models
-//     },
-
-//     // set: function(val, prop) {
-//     //     //this._meta[prop] = val;
-//     // },
-
-//     // get: function(prop) {
-//     //     //return this._meta[prop];
-//     // }
-
-// });
-
-var itemGroup = new AstroApp.Models.ItemGroup();
-
-// console.log(itemGroup);
-
-//var myPackingListView = new AstroApp.Views.ItemGroupsView({ collection: itemGroups });
+var packingList = new AstroApp.Collections.ItemGroups();
 
 

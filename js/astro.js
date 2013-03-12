@@ -62,12 +62,24 @@ AstroApp.Collections.ItemGroups = Backbone.Collection.extend({
     },
 
     loaded: function() {
-        console.log('collection successfully loaded');
         
         _.each(this.models, function(model) {
+            model.get('toPackItems').on('remove', this.isPackingDone, this); // every time an item is packed, check if we're done
             new AstroApp.Views.ItemGroupView({ model: model });
         }, this);
 
+    },
+
+    isPackingDone: function() {
+        var lengths = [];
+        _.each(this.models, function(model) {
+            lengths.push(model.get('toPackItems').length);
+        }, this);
+
+        if (_.every(lengths, function(len) { return len === 0 })) {
+            console.log('all done');
+            // trigger we are done event;
+        }
     }
 
 });

@@ -119,3 +119,6 @@ AstroApp.Views.ItemGroupView = Backbone.View.extend({
     },
     
 });
+
+// TODO: app view
+// TODO: app view listens for packing finished event

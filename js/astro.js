@@ -76,9 +76,10 @@ AstroApp.Collections.ItemGroups = Backbone.Collection.extend({
             lengths.push(model.get('toPackItems').length);
         }, this);
 
-        if (_.every(lengths, function(len) { return len === 0 })) {
-            console.log('all done');
-            // trigger we are done event;
+        var done = _.every(lengths, function(len) { return len === 0 });
+        if (done) {
+            console.log('packing is finished');
+            packingList.trigger('packing-finished');
         }
     }
 

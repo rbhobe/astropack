@@ -38,7 +38,6 @@ AstroApp.Views.ItemsView = Backbone.View.extend({
     // collection being passed in
 
     initialize: function() {
-        // this.collection.on('change', this.render, this); //INCORRECT => collection should observe the add and remove elems (change occurs only once - when pack clicked)
         this.collection.on('add', this.render, this);
         this.collection.on('remove', this.render, this);
     },
@@ -83,8 +82,6 @@ AstroApp.Views.ItemGroupView = Backbone.View.extend({
 
         // when an item is packed
         this.model.get('toPackItems').on('change:packed', function(model) { 
-            console.log(this.model);
-            console.log(this.packedGroupId);
             this.model.get('packedItems').add(model);
             this.model.get('toPackItems').remove(model);
             if(!this.model.get('toPackItems').length) { // when all items in a group have been packed
@@ -109,10 +106,7 @@ AstroApp.Views.ItemGroupView = Backbone.View.extend({
    
 
     render: function() {
-
-        // NOTE: only the last packedItems table renders (1 table in packed DOM)
-        // empty groups are not hidden, they should start out so
-
+        
         var toPackItemGroupHtml = this.template({ displayName: this.model.get('displayName'), selectorName: this.model.get('selectorName'), packedState: 'to-pack' });
         $(this.toPackId).append(toPackItemGroupHtml);
         $(this.toPackGroupId).append(this.toPackItemsView.render().el);

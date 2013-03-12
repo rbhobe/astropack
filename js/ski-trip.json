@@ -6,5 +6,19 @@
             { "name": "deodorant" },
             { "name": "toothpaste" }
         ]
-     }
+     },
+     {
+        "displayName" : "Gear",
+        "items" : [
+            { "name": "snowpants" }
+        ]
+    },
+    {
+        "displayName" : "Essentials",
+        "items" : [
+            { "name": "wallet" },
+            { "name": "phone" },
+            { "name": "keys" }
+        ]
+    }
 ]

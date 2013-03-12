@@ -44,8 +44,7 @@ AstroApp.Views.ItemsView = Backbone.View.extend({
     },
 
     render: function() {
-        console.log('re-rendering collection');
-
+        // console.log('re-rendering collection');
         this.$el.empty();
         _.each(this.collection.models, this.renderItem, this);
 
@@ -84,23 +83,24 @@ AstroApp.Views.ItemGroupView = Backbone.View.extend({
 
         // when an item is packed
         this.model.get('toPackItems').on('change:packed', function(model) { 
+            console.log(this.model);
+            console.log(this.packedGroupId);
             this.model.get('packedItems').add(model);
             this.model.get('toPackItems').remove(model);
-            
             if(!this.model.get('toPackItems').length) { // when all items in a group have been packed
-                $(this.toPackId).hide();
+                $(this.toPackGroupId).hide();
             }
-            $(this.packedId).show();
+            $(this.packedGroupId).show();
         }, this);
 
         // when an item is unpacked
         this.model.get('packedItems').on('change:packed', function(model) { 
-            this.model.get('packedItems').remove(model);
             this.model.get('toPackItems').add(model);
+            this.model.get('packedItems').remove(model);
             if(!this.model.get('packedItems').length) { // when all items in a group have been undo pack'ed
-                $(this.packedId).hide();
+                $(this.packedGroupId).hide();
             }
-            $(this.toPackId).show();
+            $(this.toPackGroupId).show();
         }, this);
         
         this.render();
@@ -110,12 +110,15 @@ AstroApp.Views.ItemGroupView = Backbone.View.extend({
 
     render: function() {
 
+        // NOTE: only the last packedItems table renders (1 table in packed DOM)
+        // empty groups are not hidden, they should start out so
+
         var toPackItemGroupHtml = this.template({ displayName: this.model.get('displayName'), selectorName: this.model.get('selectorName'), packedState: 'to-pack' });
         $(this.toPackId).append(toPackItemGroupHtml);
         $(this.toPackGroupId).append(this.toPackItemsView.render().el);
 
         var packedItemGroupHtml = this.template({ displayName: this.model.get('displayName'), selectorName: this.model.get('selectorName'), packedState: 'packed' });
-        $(this.packedId).html(packedItemGroupHtml);
+        $(this.packedId).append(packedItemGroupHtml);
         $(this.packedGroupId).append(this.packedItemsView.render().el);
 
         return this;

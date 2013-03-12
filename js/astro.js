@@ -29,10 +29,6 @@ AstroApp.Models.ItemGroup = Backbone.Model.extend({
         packedItems: new AstroApp.Collections.Items(), // nothing is packed initially
     },
 
-    initialize: function() {
-        new AstroApp.Views.ItemGroupView({ model: this });
-    },
-
 });
 
 
@@ -68,7 +64,9 @@ AstroApp.Collections.ItemGroups = Backbone.Collection.extend({
     loaded: function() {
         console.log('collection successfully loaded');
         
-        // loop through and make a itemgroup view for each item group
+        _.each(this.models, function(model) {
+            new AstroApp.Views.ItemGroupView({ model: model });
+        }, this);
 
     }
 

@@ -109,11 +109,11 @@ AstroApp.Views.ItemGroupView = Backbone.View.extend({
         
         var toPackItemGroupHtml = this.template({ displayName: this.model.get('displayName'), selectorName: this.model.get('selectorName'), packedState: 'to-pack' });
         $(this.toPackId).append(toPackItemGroupHtml);
-        $(this.toPackGroupId).append(this.toPackItemsView.render().el);
+        $(this.toPackGroupId).find('.item-group').append(this.toPackItemsView.render().el); // possible bug: find() returns array, should select first
 
         var packedItemGroupHtml = this.template({ displayName: this.model.get('displayName'), selectorName: this.model.get('selectorName'), packedState: 'packed' });
         $(this.packedId).append(packedItemGroupHtml);
-        $(this.packedGroupId).append(this.packedItemsView.render().el);
+        $(this.packedGroupId).find('.item-group').append(this.packedItemsView.render().el); // possible bug: find() returns array, should select first
 
         return this;
     },

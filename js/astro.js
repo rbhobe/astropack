@@ -39,8 +39,6 @@ AstroApp.Collections.ItemGroups = Backbone.Collection.extend({
 
     initialize: function() {
         this.on('reset', this.loaded, this);
-
-        this.fetch();
     },
 
     parse: function(response) {
@@ -78,12 +76,13 @@ AstroApp.Collections.ItemGroups = Backbone.Collection.extend({
 
         var done = _.every(lengths, function(len) { return len === 0 });
         if (done) {
-            console.log('packing is finished');
-            packingList.trigger('packing-finished');
+            console.log('PACKING FINISHED');
+            packingListItems.trigger('packing-finished');
         }
     }
 
 });
 
-var packingList = new AstroApp.Collections.ItemGroups();
+var packingListItems = new AstroApp.Collections.ItemGroups();
+var astroAppView = new AstroApp.Views.AppView({ collection: packingListItems });
 

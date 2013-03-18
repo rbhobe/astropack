@@ -120,5 +120,21 @@ AstroApp.Views.ItemGroupView = Backbone.View.extend({
     
 });
 
-// TODO: app view
-// TODO: app view listens for packing finished event
+
+AstroApp.Views.AppView = Backbone.View.extend({
+
+    // passing collection in
+
+    initialize: function() {
+        // TODO: set $el
+
+        this.collection.on('packing-finished', this.packingFinished, this);
+
+        this.collection.fetch();
+    },
+
+    packingFinished: function() {
+        alert('YOURE ALL SET! ENJOY YOUR TRIP');
+    },
+
+});

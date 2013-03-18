@@ -50,7 +50,7 @@
         <!-- Item Template -->
         <script type="text/template" id="item-template">
             <td>
-                <span class="item-name"><%= name %></span>
+                <div class="item-name"><%= name %></div>
                 <button class="pack-action btn btn-success pack">Pack</button>
                 <button class="pack-action btn btn-warning undo-pack">Undo Pack</button>
             </td>
@@ -60,8 +60,9 @@
         <script type="text/template" id="item-group-template">
             <table id="<%= selectorName %>-items-list-<%= packedState %>" class="table table-striped item-group <%= packedState %>">
                 <thead>
-                    <th><%= displayName %>
+                    <th>
                         <span class="item-group-icon icon-th-list"></span>
+                        <%= displayName %>
                     </th>
                 </thead>
             </table>

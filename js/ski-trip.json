@@ -3,14 +3,43 @@
         "displayName" : "Toiletries",
         "items" : [
             { "name": "toothbrush" },
+            { "name": "toothpaste" },
             { "name": "deodorant" },
-            { "name": "toothpaste" }
+            { "name": "hair gel" },
+            { "name": "towel" }
         ]
      },
      {
         "displayName" : "Gear",
         "items" : [
-            { "name": "snowpants" }
+            { "name": "snowpants" },
+            { "name": "snowboard" },
+            { "name": "gloves" },
+            { "name": "boots" },
+            { "name": "ski goggles" },
+            { "name": "winter jacket" },
+            { "name": "wool socks" },
+            { "name": "longjohns" }
+        ]
+    },
+    {
+        "displayName" : "Clothing",
+        "items" : [
+            { "name": "pants" },
+            { "name": "shirts" },
+            { "name": "underwear" },
+            { "name": "socks" },
+            { "name": "belt" },
+            { "name": "nightdress" },
+            { "name": "swimsuit" }
+        ]
+    },
+    {
+        "displayName" : "Handy Items",
+        "items" : [
+            { "name": "trashbags" },
+            { "name": "sleeping bag" },
+            { "name": "pillow" }
         ]
     },
     {
@@ -18,7 +47,9 @@
         "items" : [
             { "name": "wallet" },
             { "name": "phone" },
-            { "name": "keys" }
+            { "name": "phone charger" },
+            { "name": "keys" },
+            { "name": "glasses and case" }
         ]
     }
 ]

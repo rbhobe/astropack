@@ -4,11 +4,16 @@
     }
 }
 
-#astropack .navbar-fixed-top .navbar-inner { padding: 0 0 0 20px; }
+#astropack .navbar-fixed-top .navbar-inner { padding: 0 20px; }
 
+/* Initially, no items have been packed, so hide item groups */
 .packed { display:none; }
 
-.pack-action { float:right; }
+#astropack .item-group { margin-bottom:12px; }
+#astropack .item-group th { font-size:11px; font-style:italic; font-weight:400; padding:2px 8px; text-align:right; }
+#astropack .item-group td { font-size:16px; font-weight:300; }
 
+/* Pack Unpack item buttons */
+.pack-action { float:right; }
 .to-pack .pack-action.undo-pack { display:none; }
 .packed  .pack-action.pack { display:none; }

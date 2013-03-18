@@ -12,7 +12,7 @@
 #astropack .item-group-container { border: 1px solid #e5e5e5; border-radius:4px; -webkit-border-radius:4px; -moz-border-radius:4px; margin-bottom:10px; }
 #astropack .item-group { margin-bottom:0px; }
 #astropack .item-group th { background-color:#EEE; color: #08C;font-size:11px; font-style:italic; font-weight:400; padding:2px 8px; }
-#astropack .item-group td { font-size:16px; font-weight:300; }
+#astropack .item-group td { font-size:16px; font-weight:300; padding: 8px 8px 8px 29px; }
 #astropack .item-group .item-group-icon { margin: 0 4px 0 0; opacity:0.3; }
 
 .item-name { display: inline-block; margin-top:3px; }

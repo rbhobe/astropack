@@ -1,4 +1,4 @@
 astropack
 =========
 
-T-minus 2 mikes to launch sequence.
+For people who forget to pack things, and hate it.

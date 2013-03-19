@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Astropack</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <!-- jQuery first -->
+    <script src="js/jquery-1.9.1.js"></script>
+    <!--<script src="http://code.jquery.com/jquery.js"></script>-->
+    <!-- Bootstrap -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/matte-pack.css" rel="stylesheet">
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+  </head>
+  <body class="packing-not-started">
+
+    <div class="container">
+    	
+    	<div class="navbar navbar-fixed-top" id="pack-nav">
+			<div class="navbar-inner">
+				<ul class="nav">
+				  <li class="active">
+				  	<a href="#to-pack">To Pack</a>
+				  </li>
+				  <li>
+				  	<a href="#packed">Packed</a>
+				  </li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="tab-content">
+		  <div class="tab-pane active" id="to-pack">
+		  	<div id="start-packing-header">
+			  	<h3>Let's Pack <span>for</span> Ski Trip</h3>
+			  	<button type="button" id="start-packing" class="btn btn-large btn-success">Start Packing</button>
+		  	</div>
+		  </div>
+		  <div class="tab-pane" id="packed">
+		  </div>
+		</div>
+
+	<script type="text/javascript">
+
+		$(document).ready(function() {
+
+			// items to be packed
+		   var items = {};
+		   items['gear'] = ['snowpants', 'snowboard', 'gloves', 'boots', 'ski-goggles', 'winter-jacket', 'wool-socks'];
+		   items['toiletries'] = ['toothbrush', 'toothpaste', 'gel', 'deodarant', 'towel'];
+		   items['clothes'] = ['pants', 'shirts', 'underwear', 'socks', 'belt', 'longjohns', 'swimsuit', 'basketball-shorts', 'shoes'];
+		   items['other'] = ['trashbags', 'sleeping-bag', 'pillow'];
+		   items['essentials'] = ['glasses', 'wallet', 'phone', 'charger', 'keys'];
+
+
+		   // add the items to the list
+			for (var section in items) {
+				// to-pack sections are populated and shown
+				var sectionMarkup = getSectionMarkup(section, items[section], 'to-pack');
+				$("#to-pack").append($(sectionMarkup));
+
+				// packed section is unpopulated and hidden
+				var sectionMarkup = getSectionMarkup(section, [], 'packed');
+				$("#packed").append($(sectionMarkup).hide());
+			}
+
+			// hide the pack buttons until we start packing
+		    $(".pack-action").hide();
+
+			// watch the start packing button, on click: hide it, show all pack buttons, expand all sections
+			$("#start-packing").click( function(event) {
+				$(event.target).hide();
+				$('#pack-nav').show();
+				$('.pack-action').show();
+				$('#to-pack .collapse').collapse();
+				$('body').removeClass("packing-not-started").addClass("packing-started");
+			});
+
+
+		   // observe all to pack items
+		   $("#to-pack .list-item").click(function(event) {
+
+		      	// when an item is packed, move it down to the packed section
+		      	markItemAsPacked(event.target.id, $("#"+event.target.id).parents("div.accordion").attr('type'));
+
+		   });
+
+
+		   // section collapse button toggle
+		   // RSB TODO: race condition => checking class while class is being manipulated .collapsed
+		   $(".accordion-toggle").click(function(event) {
+
+		   		if($(event.target).hasClass("collapsed")) { // expanded
+		   			
+		   			// clicked on btn
+		   			if($(event.target).hasClass(".btn")) {
+		   				$(event.target).text('- collapse');
+		   			} else { //clicked on link
+		   				$(event.target).find("button.grow-shrink").text('- collapse');
+		   			}
+		   			
+		   		} else { // collapsed
+
+		   			// clicked on btn
+		   			if($(event.target).hasClass(".btn")) {
+		   				$(event.target).text('+ expand');
+		   			} else { //clicked on link
+		   				$(event.target).find("button.grow-shrink").text('+ expand');
+		   			}
+
+		   		}
+
+		   });
+
+		   // nav bar (to pack, packed)
+		   $('#pack-nav a').click(function (e) {
+			  e.preventDefault();
+			  $(this).tab('show');
+			})
+
+		});
+
+
+		/* * * FUNCTIONS * * */
+
+		function markItemAsUnpacked(itemId, sectionId) {
+
+			// if the section is hidden in to-pack, show it
+			if ($("#to-pack #to-pack-"+sectionId).is(":hidden")) {
+	   			$("#to-pack #to-pack-"+sectionId).show();
+	   		}
+
+	   		// remove the item from the packed section
+			$("#packed #"+itemId).parents("tr").remove();
+
+			// if the section in packed is empty, remove it
+			if(!$("#packed #packed-"+sectionId).find("tbody tr").length) {
+				$("#packed #packed-"+sectionId).hide();
+			}
+
+			// add the item to the to-pack section
+	   		var itemMarkup = getUnpackedItemMarkup(itemId);
+	   		$("#to-pack table#to-pack-"+sectionId+"-items").append($(itemMarkup));
+
+			// start observing the to-pack item for pack
+			$("#to-pack table#to-pack-"+sectionId+"-items #"+itemId).click( function() {
+	   			markItemAsPacked(itemId, sectionId);
+	   		});
+
+			
+		}
+
+		function markItemAsPacked(itemId, sectionId) {
+
+	   		// if the section is hidden in packed, show it
+	   		if ($("#packed #packed-"+sectionId).is(":hidden")) {
+	   			$("#packed #packed-"+sectionId).show();
+	   		}
+
+	   		// remove the item from the to pack section
+	   		$("#to-pack #"+itemId).parents("tr").remove();
+
+			// if the section in to pack is empty, hide it
+			if(!$("#to-pack #to-pack-"+sectionId).find("tbody tr").length) {
+				$("#to-pack #to-pack-"+sectionId).hide();
+			}
+
+	   		// add the item to the packed section
+	   		var itemMarkup = getPackedItemMarkup(itemId);
+	   		$("#packed table#packed-"+sectionId+"-items").append($(itemMarkup));
+
+	   		// start observing the packed item for unpack
+	   		$("#packed table#packed-"+sectionId+"-items #"+itemId).click( function() {
+	   			markItemAsUnpacked(itemId, sectionId);
+	   		});
+
+			// if all items are packed, celebrate
+			if ($("#to-pack").find("tbody tr").length == 0) {
+	   			alert("You're all packed! Have a great trip :)");
+	   		}
+	   		
+	   }
+
+		function getItemNameFromId(item) {
+			return $(item).parents("label").text().trim();
+		}
+
+		function getUnpackedItemMarkup(item) {
+	   		return "<tr><td><button type='button' class='see-item btn'><i class='icon-search'></i></button><span class='list-item'>"+item+"<button id='"+item+"' type='button' class='btn btn-success pack-action'>Pack</button></span></td></tr>";
+	   }
+
+	   function getPackedItemMarkup(item) {
+	   		return "<tr><td><span class='list-item'>"+item+"</span><button id='"+item+"' type='button' class='btn btn-warning pack-action'>Undo Pack</button></td></tr>";
+	   }
+
+	   function getSectionMarkup(sectionName, sectionItems, state) {
+
+	   		var whichList = '';
+	   		var defaultOpen = '';
+	   		if (state == 'to-pack') {
+	   			whichList = 'to-pack-';
+	   		} else {
+	   			whichList = 'packed-';
+	   			defaultOpen = ' in';
+	   		}
+
+	   		var openSectionMarkup = "<div type='"+sectionName+"' class='accordion' id='"+whichList+sectionName+"'><div class='accordion-group'><div class='accordion-heading'><a class='accordion-toggle' data-toggle='collapse' data-parent='"+whichList+sectionName+"' href='#"+whichList+sectionName+"-item-list'>"+sectionName+" <button type='button' class='grow-shrink btn btn-mini pull-right' data-toggle='collapse' data-target='#"+whichList+sectionName+"-item-list'>+ expand</button></a></div><div id='"+whichList+sectionName+"-item-list' class='accordion-body collapse"+defaultOpen+"'><div class='accordion-inner'><table class='table table-striped list' id='"+whichList+sectionName+"-items'><tbody>";
+
+	    	var itemMarkup = "";
+	    	if (state == 'to-pack') {
+		    	for(var key in sectionItems) {
+		    		itemMarkup += getUnpackedItemMarkup(sectionItems[key]);
+		    	}
+			} else {
+				for(var key in sectionItems) {
+		    		itemMarkup += getPackedItemMarkup(sectionItems[key]);
+		    	}
+			}
+
+	    	closeSectionMarkup = "</tbody></table></div></div></div>";
+
+	    	return openSectionMarkup + itemMarkup + closeSectionMarkup;
+
+		}
+
+
+	</script>
+
+  </body>
+</html>

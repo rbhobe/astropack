@@ -35,7 +35,7 @@ AstroApp.Models.ItemGroup = Backbone.Model.extend({
 AstroApp.Collections.ItemGroups = Backbone.Collection.extend({
 
     model: AstroApp.Models.ItemGroup,
-    url: 'js/ski-trip.json',
+    url: 'js/resources/ski-trip.json',
 
     initialize: function() {
         this.on('reset', this.loaded, this);

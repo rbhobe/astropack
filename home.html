@@ -23,16 +23,19 @@
     <link href='http://fonts.googleapis.com/css?family=Gabriela' rel='stylesheet' type='text/css'>
 
     <style type="text/css">
-
+        body { background-color: #faf7f7; }
         .header { text-align: center; }
         .header h1 { 
             font-family:'Gabriela', serif;
             font-size:28px;
-            font-weight: 400; 
+            font-weight: 400;
+            text-shadow: -1px 1px 2px #fff, 1px -1px 2px #fff;
         }
 
-        .trip { position:relative; width:132px; margin-bottom:8px; }
-        .trip:nth-of-type(odd) { margin-right: 8px; }
+        /*#astropack { background-color:#333; opacity:0.5; }*/
+        #trips-container { margin-left:5%; }
+        .trip { position:relative; width:46%; margin-bottom:8px; margin-left:8px; z-index:5; max-width:200px; }
+        /*.trip:nth-of-type(odd) { margin-right: 8px; }*/
         .trip a { position:absolute; top:0; left:0; display:block; width:100%; height:100%; text-decoration:none; z-index:10; cursor:pointer; }
 
         img { box-shadow: 0px 0px 3px #333; }
@@ -47,7 +50,7 @@
     <div class="container" id="astropack">
 
         <div class="header">
-            <h1>Where to, sir?</h1>
+            <h1>Let's get packing</h1>
         </div>
 
         <div id="trips-container">
@@ -81,6 +84,12 @@
                 <span class="label label-inverse" style="position:absolute; top:6px; left:6px;">Bike ride</span>
                 <img src="http://debruynphotography.com/wp-content/uploads/2012/06/Mountain-Biking-1.jpg" class="img-rounded" alt="bike ride" />
             </div>
+
+            <div class="trip">
+                <span class="label label-inverse" style="position:absolute; top:6px; left:6px;">Everyday bag</span>
+                <img src="http://myfashionique.files.wordpress.com/2012/01/backpack_guy.jpg" class="img-rounded" alt="everyday backpack" />
+            </div>
+
         </div>
 
     </div>
@@ -117,6 +126,7 @@
             itemSelector : '.trip',
             isFitWidth: true
           });
+
         });
     </script>
 

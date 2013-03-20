@@ -7,7 +7,7 @@
 body #astropack { font-family:'Gabriela', serif; font-weight:400; }
 
 #astropack .navbar-fixed-top .navbar-inner { padding: 0 20px; }
-#astropack .navbar-fixed-top .navbar-inner #pack-nav-subpages { font-family:'Julius Sans One', sans-serif; font-size:12px; }
+#astropack .navbar-fixed-top .navbar-inner #pack-nav-subpages { font-family:'Julius Sans One', sans-serif; font-size:13px; }
 
 /* Initially, no items have been packed, so hide item groups */
 .packed { display:none; }
@@ -18,7 +18,7 @@ body #astropack { font-family:'Gabriela', serif; font-weight:400; }
 #astropack .item-group td { font-size:16px; font-weight:300; padding: 8px 8px 8px 29px; }
 #astropack .item-group .item-group-icon { margin: 0 4px 0 0; opacity:0.3; }
 
-.item-name { font-family:'Julius Sans One', sans-serif; display: inline-block; margin-top:5px; }
+.item-name { font-family:'Julius Sans One', sans-serif; font-weight:500; display: inline-block; margin-top:5px; }
 .packed .item-name { text-decoration: line-through; }
 
 /* Pack Unpack item buttons */

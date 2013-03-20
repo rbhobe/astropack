@@ -1,4 +1,3 @@
-
 AstroApp.Models.Item = Backbone.Model.extend({
 
     defaults: {
@@ -35,10 +34,12 @@ AstroApp.Models.ItemGroup = Backbone.Model.extend({
 AstroApp.Collections.ItemGroups = Backbone.Collection.extend({
 
     model: AstroApp.Models.ItemGroup,
-    url: 'js/resources/ski-trip.json',
+    // url: 'js/resources/ski-trip.json',
 
-    initialize: function() {
+    initialize: function(models, options) {
         this.on('reset', this.loaded, this);
+
+        this.url = 'js/resources/'+options.tripName+'.json';
     },
 
     parse: function(response) {
@@ -77,12 +78,9 @@ AstroApp.Collections.ItemGroups = Backbone.Collection.extend({
         var done = _.every(lengths, function(len) { return len === 0 });
         if (done) {
             console.log('PACKING FINISHED');
-            packingListItems.trigger('packing-finished');
+            this.trigger('packing-finished');
         }
     }
 
 });
-
-var packingListItems = new AstroApp.Collections.ItemGroups();
-var astroAppView = new AstroApp.Views.AppView({ collection: packingListItems });
 

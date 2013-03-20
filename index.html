@@ -5,28 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <!-- jQuery first -->
     <script src="lib/jquery-1.9.1.js"></script>
-    <!--<script src="http://code.jquery.com/jquery.js"></script>-->
     <!-- Underscore -->
     <script src="lib/underscore.js"></script>
     <!-- Backbone -->
     <script src="lib/backbone-min.js"></script>
-    <!-- Backbone local storage -->
-    <!--<script src="js/backbone.localStorage-min.js"></script>-->
     <!-- Bootstrap -->
     <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="css/astro.css" rel="stylesheet">
     <script src="lib/bootstrap/js/bootstrap.min.js"></script>
     <link href="lib/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
-
-    
+    <!-- Google Web Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Gabriela' rel='stylesheet' type='text/css'>
   </head>
 
   <body>
     <div class="container" id="astropack">
 
-        <div class="navbar navbar-fixed-top" id="pack-nav">
+        <div class="navbar navbar-fixed-top" >
             <div class="navbar-inner">
-                <ul class="nav">
+                <a class="brand" href="/#home">Ski Trip</a>
+                <ul class="nav" id="pack-nav-subpages">
                   <li class="active">
                     <a href="#to-pack-nav-item">To Pack</a>
                   </li>
@@ -70,16 +68,10 @@
             </div>
         </script>
 
-
-        <!-- ASTRO LOGIC -->
-        <script src="js/utils.js"></script>
-        <script src="js/astro-views.js"></script>
-        <script src="js/astro.js"></script>
-
         <script type="text/javascript">
             // nav bar tabs
             $(document).ready(function() {
-               $('#pack-nav a').click(function (e) {
+               $('#pack-nav-subpages a').click(function (e) {
                   e.preventDefault();
                   $(this).tab('show');
                 })
@@ -87,5 +79,12 @@
         </script>
 
     </div>
+
+    <!-- ASTRO LOGIC -->
+    <script src="js/utils.js"></script>
+    <script src="js/astro-views.js"></script>
+    <script src="js/astro.js"></script>
+    <script src="js/astro-router.js"></script>
+
   </body>
 </html>

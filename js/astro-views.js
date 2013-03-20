@@ -2,7 +2,8 @@ var AstroApp = {
     Models: {},
     Collections: {},
     Views: {}, 
-    Templates: {}
+    Templates: {},
+    Router: {}
 };
 
 AstroApp.Views.ItemView = Backbone.View.extend({

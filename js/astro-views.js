@@ -135,7 +135,8 @@ AstroApp.Views.AppView = Backbone.View.extend({
     },
 
     packingFinished: function() {
-        alert('YOURE ALL SET! ENJOY YOUR TRIP');
+        var doneImg = "<h3 style='font-weight:400;font-size:22px;text-align:center;'>All set! Have a great trip :)</h3><img width='96%' class='img-circle' src='http://www.sa-people.com/files/2010/07/all-packed-and-ready-for-the-world-cup.jpg' alt='packing finished'/>";
+        $('#to-pack-container').html(doneImg);
     },
 
 });

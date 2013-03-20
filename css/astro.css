@@ -4,6 +4,12 @@
     }
 }
 
+@media only screen and (min-device-width: 600px) {
+    body {
+        padding-top:60px;
+    }
+}
+
 body #astropack { font-family:'Gabriela', serif; font-weight:400; }
 
 #astropack .navbar-fixed-top .navbar-inner { padding: 0 20px; }
@@ -12,13 +18,13 @@ body #astropack { font-family:'Gabriela', serif; font-weight:400; }
 /* Initially, no items have been packed, so hide item groups */
 .packed { display:none; }
 
-#astropack .item-group-container { border: 1px solid #e5e5e5; border-radius:4px; -webkit-border-radius:4px; -moz-border-radius:4px; margin-bottom:10px; }
+#astropack .item-group-container { max-width:300px; border: 1px solid #e5e5e5; border-radius:4px; -webkit-border-radius:4px; -moz-border-radius:4px; margin-bottom:10px; }
 #astropack .item-group { margin-bottom:0px; }
 #astropack .item-group th { background-color:#EEE; color: #08C;font-size:11px; font-style:italic; font-weight:400; padding:2px 8px; }
 #astropack .item-group td { font-size:16px; font-weight:300; padding: 8px 8px 8px 29px; }
 #astropack .item-group .item-group-icon { margin: 0 4px 0 0; opacity:0.3; }
 
-.item-name { font-family:'Julius Sans One', sans-serif; font-weight:500; display: inline-block; margin-top:5px; }
+.item-name { font-family:'Julius Sans One', sans-serif; font-weight:500; font-size:20px; display: inline-block; margin-top:5px; max-width:176px; }
 .packed .item-name { text-decoration: line-through; }
 
 /* Pack Unpack item buttons */

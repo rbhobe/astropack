@@ -11,20 +11,21 @@
     <script src="lib/backbone-min.js"></script>
     <!-- Bootstrap -->
     <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="css/astro.css" rel="stylesheet">
     <script src="lib/bootstrap/js/bootstrap.min.js"></script>
     <link href="lib/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
     <!-- Google Web Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Gabriela' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Julius+Sans+One' rel='stylesheet' type='text/css'>
+    <!-- Astro CSS -->
+    <link href="css/astro.css" rel="stylesheet">
   </head>
 
   <body>
     <div class="container" id="astropack">
 
-        <div class="navbar navbar-fixed-top" >
+        <div class="navbar navbar-fixed-top">
             <div class="navbar-inner">
-                <a class="brand" href="/#home">Ski Trip</a>
+                <a class="brand" href="/#home" style="font-size:16px; padding-right:20px"><i class="icon-arrow-left" style="opacity:0.3;margin:3px 7px 0px 0px;"></i>Home</a>
                 <ul class="nav" id="pack-nav-subpages">
                   <li class="active">
                     <a href="#to-pack-nav-item">To Pack</a>
@@ -50,8 +51,8 @@
         <script type="text/template" id="item-template">
             <td>
                 <div class="item-name"><%= name %></div>
-                <button class="pack-action btn btn-success pack">Pack</button>
-                <button class="pack-action btn btn-warning undo-pack">Undo Pack</button>
+                <button class="pack-action btn btn-success pack">Got It</button>
+                <button class="pack-action btn btn-warning undo-pack">Undo</button>
             </td>
         </script>
 

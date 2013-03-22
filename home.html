@@ -21,6 +21,7 @@
     <script src="lib/jquery.masonry.min.js"></script>
     <!-- Google Web Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Gabriela' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Julius+Sans+One' rel='stylesheet' type='text/css'>
 
     <style type="text/css">
         body { background-color: #faf7f7; }
@@ -52,49 +53,79 @@
     <div class="container" id="astropack">
 
         <div class="header">
-            <h1>Let's get packing</h1>
+            <h2 style="font-size:21px; font-weight:300">Get going. Forget <span style="font-style:italic;">nothing</span>.</h2>
         </div>
 
-        <div id="trips-container">
-            <div class="trip">
-                <span class="label label-inverse">Cruise</span>
-                <img src="http://jerrygarrett.files.wordpress.com/2011/08/carnival-victory.jpg" class="img-rounded" alt="cruise" />
+        <div class="tabbable">
+
+            <div id="trip-type-nav" style="font-family:'Julius Sans One', sans-serif;">
+                <ul class="nav nav-pills" style="text-align:center;">
+                  <li class="active" style="margin-left:40px"><a href="#common-trips" data-toggle="tab">Common</a></li>
+                  <li><a href="#my-trips" data-toggle="tab">My Trips</a></li>
+                </ul>
             </div>
 
-            <div class="trip">
-                <span class="label label-inverse">Overseas Travel</span>
-                <img src="http://upload.wikimedia.org/wikipedia/commons/2/29/Passport_stamps.jpg" class="img-rounded" alt="overseas travel" />
-            </div>
+            <div class="tab-content">
 
-            <div class="trip">
-                <span class="label label-inverse">Ski Trip</span>
-                <img src="http://www.realfoodtraveler.com/wp-content/uploads/2012/03/SP-Ski_Powder_sm.jpg" class="img-rounded" alt="ski trip" />
-                <a href="/#ski-trip"></a>
-            </div>
+                <div class="tab-pane active" id="common-trips">
+                    <div id="trips-container">
+                        <div class="trip">
+                            <span class="label label-inverse">Cruise</span>
+                            <img src="http://jerrygarrett.files.wordpress.com/2011/08/carnival-victory.jpg" class="img-rounded" alt="cruise" />
+                        </div>
 
-            <div class="trip">
-                <span class="label label-inverse">Business Trip</span>
-                <img src="http://www.2knowb440.com/blog/wp-content/uploads/2012/04/bigstock_Business_Traveller_5315537.jpg" class="img-rounded" alt="business trip" />
-            </div>
+                        <div class="trip">
+                            <span class="label label-inverse">Overseas Travel</span>
+                            <img src="http://upload.wikimedia.org/wikipedia/commons/2/29/Passport_stamps.jpg" class="img-rounded" alt="overseas travel" />
+                        </div>
 
-            <div class="trip">
-                <span class="label label-inverse">Warm Weather Trip</span>
-                <img src="http://25.media.tumblr.com/tumblr_lo8j9kyC641qaxf8ko1_1280.jpg" class="img-rounded" alt="warm vacation" />
-            </div>
+                        <div class="trip">
+                            <span class="label label-inverse">Ski Trip</span>
+                            <img src="http://www.realfoodtraveler.com/wp-content/uploads/2012/03/SP-Ski_Powder_sm.jpg" class="img-rounded" alt="ski trip" />
+                            <a href="/#ski-trip"></a>
+                        </div>
 
-            <div class="trip">
-                <span class="label label-inverse">Bike ride</span>
-                <img src="http://debruynphotography.com/wp-content/uploads/2012/06/Mountain-Biking-1.jpg" class="img-rounded" alt="bike ride" />
-            </div>
+                        <div class="trip">
+                            <span class="label label-inverse">Business Trip</span>
+                            <img src="http://www.2knowb440.com/blog/wp-content/uploads/2012/04/bigstock_Business_Traveller_5315537.jpg" class="img-rounded" alt="business trip" />
+                        </div>
 
-            <div class="trip">
-                <span class="label label-inverse">Everyday bag</span>
-                <img src="http://myfashionique.files.wordpress.com/2012/01/backpack_guy.jpg" class="img-rounded" alt="everyday backpack" />
+                        <div class="trip">
+                            <span class="label label-inverse">Warm Weather Trip</span>
+                            <img src="http://25.media.tumblr.com/tumblr_lo8j9kyC641qaxf8ko1_1280.jpg" class="img-rounded" alt="warm vacation" />
+                        </div>
+
+                        <div class="trip">
+                            <span class="label label-inverse">Bike ride</span>
+                            <img src="http://debruynphotography.com/wp-content/uploads/2012/06/Mountain-Biking-1.jpg" class="img-rounded" alt="bike ride" />
+                        </div>
+
+                        <div class="trip">
+                            <span class="label label-inverse">Everyday bag</span>
+                            <img src="http://myfashionique.files.wordpress.com/2012/01/backpack_guy.jpg" class="img-rounded" alt="everyday backpack" />
+                        </div>
+
+                        <div class="trip">
+                            <span class="label label-inverse">Top 10</span>
+                            <img src="http://myfashionique.files.wordpress.com/2012/01/backpack_guy.jpg" class="img-rounded" alt="everyday backpack" />
+                        </div>
+
+                    </div>
+
+                </div>
+
+            <div class="tab-pane" id="my-trips">
+                You don't have any custom trips yet.
+
+                [Create from scratch]
+
+                [Duplicate a common list]
             </div>
 
         </div>
-
     </div>
+
+</div>
 
     <!-- Item Template -->
     <script type="text/template" id="item-template">
@@ -121,7 +152,7 @@
 
 
     <script type="text/javascript">
-        var $container = $('#trips-container');
+        var $container = $('#common-trips');
 
         $container.imagesLoaded( function(){
           $container.masonry({
@@ -129,6 +160,11 @@
             isFitWidth: true
           });
 
+        });
+
+        $('#trip-type-nav a').click(function (e) {
+          e.preventDefault();
+          $(this).tab('show');
         });
     </script>
 

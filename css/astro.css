@@ -1,15 +1,3 @@
-@media only screen and (min-device-width: 321px) {
-    body {
-        padding-top:40px;
-    }
-}
-
-@media only screen and (min-device-width: 600px) {
-    body {
-        padding-top:60px;
-    }
-}
-
 body #astropack { font-family:'Gabriela', serif; font-weight:400; }
 
 #astropack .navbar-fixed-top .navbar-inner { padding: 0 20px; }
@@ -24,7 +12,7 @@ body #astropack { font-family:'Gabriela', serif; font-weight:400; }
 #astropack .item-group td { font-size:16px; font-weight:300; padding: 8px 8px 8px 29px; }
 #astropack .item-group .item-group-icon { margin: 0 4px 0 0; opacity:0.3; }
 
-.item-name { font-family:'Julius Sans One', sans-serif; font-weight:500; font-size:20px; display: inline-block; margin-top:5px; max-width:176px; }
+.item-name { font-family:'Julius Sans One', sans-serif; font-weight:500; font-size:19px; display: inline-block; margin-top:5px; max-width:176px; }
 .packed .item-name { text-decoration: line-through; }
 
 /* Pack Unpack item buttons */

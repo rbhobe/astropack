@@ -1,4 +1,4 @@
 astropack
 =========
 
-For people who forget to pack things, and hate it.
+Never fail to pack a bag.
